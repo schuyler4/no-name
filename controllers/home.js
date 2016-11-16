@@ -1,3 +1,3 @@
-module.export = function getHome(req, res) {
-  res.send("hello")
+exports.getHome = function(req, res) {
+  res.render('home')
 }
