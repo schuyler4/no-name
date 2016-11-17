@@ -29,6 +29,8 @@ app.use(flash());
 
 require('./routes/home')(app);
 require('./routes/user')(app, passport);
+require('./routes/word')(app);
+require('./routes/qAndA')(app);
 
 app.listen(3000);
 console.log("listening on port 3000")

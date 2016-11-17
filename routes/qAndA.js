@@ -1,23 +1,21 @@
+var controller = require('../controllers/qAndA');
 
 module.exports = function(app) {
-  /*
-  get the question
 
-  app.get('/question')*/
+  /*get the question*/
 
-  /*
+  app.get('/question', controller.getQuestion)
 
-  post the question
+  /*post the question*/
 
-  app.post('/question')*/
+  app.post('/question', controller.askQuestion)
 
-  /*
+  /*get the answer*/
 
-  get the answer
+  app.get('/answer/:question', controller.getAnswer)
 
-  app.get('/answer')
+  /*post the answers rating */
 
-  */
+  app.post('/answer/:question', controller.postAnswer)
 
-  
 }
