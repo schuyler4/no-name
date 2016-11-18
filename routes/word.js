@@ -1,15 +1,16 @@
 var controller = require('../controllers/word');
+var userContoller = require('../controllers/user')
 
 module.exports = function(app) {
 
   /* get the words page */
-  app.get('/word', controller.getWord);
+  app.get('/word', userContoller.isLoggedIn, controller.getWord);
 
   /* post the word page */
 
-  app.post('/word', controller.postWord);
+  app.post('/word', userContoller.isLoggedIn, controller.postWord);
 
   /* get the thank you page */
 
-  app.get('/thankyou/:word', controller.getThankYou);
+  app.get('/thankyou/:word', userContoller.isLoggedIn ,controller.getThankYou);
 }

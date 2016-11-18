@@ -1,6 +1,7 @@
 var Question = require('../models/question.js');
 var Answer = require('../models/answer.js');
 var Word = require('../models/word.js');
+var User = require('../models/user.js');
 
 /* get the question page */
 exports.getQuestion = function(req, res) {
@@ -25,7 +26,18 @@ exports.askQuestion = function(req, res) {
           throw err;
         }
 
-        return res.redirect('/answer/' + question.question);
+        var query = {_id: req.user.id};
+        var increment = {$inc: {questions: 1}};
+
+        /* update the user's questions */
+        User.findOneAndUpdate(query, increment).exec(function(err, user) {
+          if(err) {
+            throw err;
+          }
+
+          return res.redirect('/answer/' + question.question);
+        });
+
       });
 
     } else {
@@ -82,7 +94,6 @@ exports.getAnswer = function(req, res) {
         answerArray.push(randomWord)
       }
       var answer = answerArray.join(' ');
-      console.log(answer);
 
       return res.render('answer', {question: question, answer: answer});
 
@@ -99,5 +110,70 @@ exports.getAnswer = function(req, res) {
 
 /* for the users to post a rating after there qustion has been asked */
 exports.postAnswer = function(req, res) {
-  return console.log("posting rating")
+  var question = req.params.question;
+  var answer = req.body.answer;
+  var rating = req.body.rating;
+
+  console.log("the question is " + question);
+  console.log("the rating is " + rating);
+  console.log("the answer is" + answer)
+
+  /* this is to push the rating to the question */
+  function addRating(array) {
+    var query = {question: question};
+    var push = {$push: {array: answer}};
+
+    Question.findOneAndUpdate(query, push, function(err, rating) {
+      if(err) {
+        throw err;
+      }
+
+      return res.redirect('/answer/' + question);
+    });
+  }
+
+  /* switch thought all the ratings and call the function */
+  switch (rating) {
+    case '1':
+      addRating('oneAnswers');
+      break;
+
+    case '2':
+      addRating(twoAnswers);
+      break;
+
+    case '3':
+      addRating(threeAnswers);
+      break;
+
+    case '4':
+      addRating(fourAnswers);
+      break;
+
+    case '5':
+      addRating(fiveAnswers);
+      break;
+
+    case '6':
+      addRating(sixAnswers);
+      break;
+
+    case '7':
+      addRating(sevenAnswers);
+      break;
+
+    case '8':
+      addRating(eightAnswers);
+      break;
+
+    case '9':
+      addRating(nineAnswers);
+      break;
+
+    case '10':
+      addRating(tenAnswers);
+      break;
+
+  }
+
 }

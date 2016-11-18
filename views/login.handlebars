@@ -1,6 +1,9 @@
-<h1>login</h1>
-
-<form action='/login' method="POST">
-  <input name="username"></input>
-  <input name="password"></input>
-</form>
+<div class="container">
+  <h1>login</h1>
+  <form action='/login' method="POST">
+    <input name="email"></input>
+    <input name="password"></input>
+    <button type="submit">Login</button>
+  </form>
+  <p>{{message}}</p>
+</div>

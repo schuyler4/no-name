@@ -10,17 +10,25 @@ module.exports = function(app, passport) {
 
   /* post the user page use passport to create a user */
   app.post('/signup', passport.authenticate('signup', {
-    successRedirect : '/',
+    successRedirect : '/profile',
     failureRedirect : '/signup',
     failureFlash : true
   }));
 
   /* post the login page */
-  app.post('/login', function() {
-    console.log("logging in");
-  });
+  app.get('/login', controller.getLogin);
+
+  /* post for the login use the login strategy */
+  app.post('/login', passport.authenticate('login', {
+    successRedirect: '/profile',
+    failureRedirect: '/login',
+    failureFlash: true
+  }));
+
+  /* logout the user */
+  app.get('/logout', controller.logout)
 
   /* get the users specific profile if they are logged in */
-  app.get('/profile', controller.getUser)
+  app.get('/profile', controller.isLoggedIn, controller.getUser);
 
 }

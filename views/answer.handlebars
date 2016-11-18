@@ -1,16 +1,21 @@
 <div class="container">
   <h1> the answer to your question ({{question}}) is: {{answer}} </h1>
-  <form action="/answer" method="POST">
-    <label><input type="radio" name="rating" value=1/><label/>
-    <label><input type="radio" name="rating" value=2/><label/>
-    <label><input type="radio" name="rating" value=3/><label/>
-    <label><input type="radio" name="rating" value=4/><label/>
-    <label><input type="radio" name="rating" value=5/><label/>
-    <label><input type="radio" name="rating" value=6/><label/>
-    <label><input type="radio" name="rating" value=7/><label/>
-    <label><input type="radio" name="rating" value=8/><label/>
-    <label><input type="radio" name="rating" value=9/><label/>
-    <label><input type="radio" name="rating" value=10/><label/>
+  <form action="/answer/{{question}}" method="POST">
+    <label>1 :makes no sence just random words<input type="radio" name="rating"
+      value='1'/><label/></br>
+    <label>2<input type="radio" name="rating" value='2'/><label/>
+    <label>3<input type="radio" name="rating" value='3'/><label/>
+    <label>4<input type="radio" name="rating" value='4'/><label/>
+    <label>5<input type="radio" name="rating" value='5'/><label/>
+    <label>6<input type="radio" name="rating" value='6'/><label/>
+    <label>7<input type="radio" name="rating" value='7'/><label/>
+    <label>8<input type="radio" name="rating" value='8'/><label/>
+    <label>9<input type="radio" name="rating" value='9'/><label/>
+    <label>10 :makes complete sence perfect answer<input type="radio"
+      name="rating" value=10/><label/>
+
+    <input type='hidden' value={{answer}} name='answer'> </input>
+    <button type="submit">Rate Answer</button>
   </form>
 
   <a href="/question"> Ask Me Another Question </a>
